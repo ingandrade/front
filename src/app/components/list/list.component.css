@@ -1,0 +1,27 @@
+.color-white{
+    color: white;
+}
+
+.space-right{
+    margin-right: 5px;
+}
+
+#country{
+    margin-top: 40px;
+}
+
+input.ng-touched.ng-invalid{
+    border-color: #dc3545;
+}
+
+input.ng-valid{
+    border-color: #28a745;
+}
+
+.red-icon{
+    color: #dc3545;
+}
+
+.green-icon{
+    color: #28a745;
+}

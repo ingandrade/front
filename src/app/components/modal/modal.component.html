@@ -1,0 +1,58 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ title }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="md-form">
+                    <label for="form34">Departamento</label>
+                    <input type="text" id="form34" class="form-control" mdbInput mdbValidate [formControl]="contactFormModalName">
+                    
+                    <!-- <mdb-error
+                        *ngIf="contactFormModalName.invalid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+                        invalid
+                    </mdb-error>
+                    <mdb-success
+                        *ngIf="contactFormModalName.valid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+                        valid
+                    </mdb-success> -->
+            </div>
+                
+            <div class="md-form">
+                
+                <label for="form29">Código</label>
+                <input type="number" id="form29" class="form-control" mdbInput mdbValidate
+                    [formControl]="contactFormModalEmail">
+                <!-- <mdb-error
+                    *ngIf="contactFormModalEmail.invalid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">
+                    Input invalid
+                </mdb-error>
+                <mdb-success
+                    *ngIf="contactFormModalEmail.valid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">Input
+                    valid
+                </mdb-success> -->
+            </div>
+    
+    
+            <div class="md-form">
+                
+                <label for="form8">Nombre de Municipio</label>
+                <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
+                            [formControl]="contactFormModalMessage"></textarea>
+            <!-- <mdb-error
+                *ngIf="contactFormModalMessage.invalid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+                Input invalid
+            </mdb-error>
+            <mdb-success
+                *ngIf="contactFormModalMessage.valid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+                Input valid
+            </mdb-success> -->
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+</ng-template>

@@ -1,0 +1,104 @@
+<section id="country">
+    <h2 class="display-2 text-center">Country List</h2>
+        
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <button class="btn btn-success float-right" (click)="open(content, 1,'')">
+                    <i class="fas fa-map-marked-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="filterCountry"  [(ngModel)]="filterCountry" >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Municipio</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let country of countrys | filter:filterCountry |  paginate: {itemsPerPage: 10, currentPage: pageActual }">
+                        <td>{{ country.CountryCode }}</td>
+                        <td>{{ country.CountryName }}</td>
+                        <td>
+                            <button class="btn btn-warning space-right" (click)="open(content, 2, country)">
+                                <i class="fas fa-pencil-alt color-white"></i>
+                            </button>
+                            <button class="btn btn-danger">
+                                <i class="fas fa-trash-alt color-white" (click)="onDelete(country.CTId)"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <pagination-controls (pageChange)="pageActual = $event" class="text-center"></pagination-controls>
+    </div>
+</section>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ title }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+            <input type="hidden" name="CTId" [value]="service.formData.CTId">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-white">
+                            <i class="fas fa-map-marked-alt" [class.green-icon]="DPId.valid" [class.red-icon]="DPId.invalid && DPId.touched"></i>
+                        </div>
+                    </div>
+                    <select name="DPId" class="form-control" #DPId="ngModel" [(ngModel)]="service.formData.DPId" required>
+                        <option value="" ng-selected="selected" *ngIf="cr">Select option</option>
+                        <option *ngFor="let opt of dep | async" [value]="opt.id" >{{opt.name }} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-white">
+                            <i class="fas fa-barcode" [class.green-icon]="CountryCode.valid" [class.red-icon]="CountryCode.invalid && CountryCode.touched"></i>
+                        </div>
+                    </div>
+                    <input name="CountryCode" class="form-control" #CountryCode="ngModel" [(ngModel)]="service.formData.CountryCode" Placeholder="Code" 
+                    required maxlength="3" minlength="3">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-white">
+                            <i class="fas fa-map-marker-alt" [class.green-icon]="CountryName.valid" [class.red-icon]="CountryName.invalid && CountryName.touched"></i>
+                        </div>
+                    </div>
+                    <input name="CountryName" class="form-control" #CountryName="ngModel" [(ngModel)]="service.formData.CountryName" Placeholder="Name" 
+                    required maxlength="100">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="form.invalid"><i class="fas fa-database"></i> Save</button>
+            </div>
+        </form>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancelar</button>
+    </div> -->
+</ng-template>
+
+
